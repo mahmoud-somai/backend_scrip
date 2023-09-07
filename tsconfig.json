@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES6",         /* Specify ECMAScript target version */
+    "module": "CommonJS",       /* Specify module format */
+    "strict": true,             /* Enable strict type-checking */
+    "esModuleInterop": true,    /* Enable default imports with interop */
+    "forceConsistentCasingInFileNames": true, /* Enforce consistent file name casing */
+    "outDir": "./dist",         /* Specify the output directory */
+    "baseUrl": ".",             /* Base directory to resolve non-relative module names */
+    "paths": {
+      "*": ["node_modules/*"]   /* Enable module resolution from node_modules */
+    }
+  }
+}
