@@ -19,6 +19,7 @@ app.post('/scraping', async (req:any, res:any) => {
 
     const compiledConvert: (html: string) => string = compile({selectors: [ { selector: 'img', format: 'skip' },{ selector: 'a', options: { ignoreHref: true } } ]},
     );
+
     const loader = new RecursiveUrlLoader(url, {
         extractor: compiledConvert,
         maxDepth: maxDepth || 1,
@@ -45,16 +46,22 @@ app.post('/scraping', async (req:any, res:any) => {
             const responseMessage = 'Scraping completed and files saved.';
             const responseSources = docs.map((doc: any) => doc.metadata.source);
             const responseContent = docs.map((doc: any) => doc.pageContent);
+            const responseTitle = docs.map((doc: any) => doc.metadata.title);
+            const responseLanguage = docs.map((doc: any) => doc.metadata.language);
+            const responseUrls= docs.map((doc: any) => doc.metadata.source);
             data.push(responseContent);
             const responseData = {
-                message: responseMessage,
-                sources: responseSources,
-                content: data,
-
+               //message: responseMessage[0],
+                sources: responseSources[0],
+                content: responseContent[0],
+                title: responseTitle[0],
+                language: responseLanguage[0],
+                urls: responseUrls,
+                Urlcontent: responseContent,
             };
             res.status(200).json(responseData);
         } else {
-            res.status(200).json({ message: 'No documents found.' });
+            res.status(500).json({ message: 'No documents found.' });
         }
        
         
